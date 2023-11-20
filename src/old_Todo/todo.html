@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO</title>
+    
+    
+</head>
+
+<body> 
+   
+   
+
+    <h1>
+        To Do List App
+    </h1>
+    <input type="text" name="text" id="text" placeholder="Add Todo">
+    <input type="hidden" id="saveIndex">
+    <button id="add_task_btn">Add</button>
+    <button id="edit_task_btn" style="display: none">Edit</button>
+    
+
+    <div id="listbox"></div>
+
+
+    <script>
+        // Targeting HTML elements
+        const text = document.getElementById("text");
+        const addTaskBtn = document.getElementById("add_task_btn");
+        const editTaskBtn = document.getElementById("edit_task_btn");
+        const listbox = document.getElementById("listbox");
+        const saveInd = document.getElementById("saveIndex");
+
+        let todoArray = [];
+
+        // Adding Task
+        addTaskBtn.addEventListener("click",(e)=>{
+            e.preventDefault();
+            let todo = localStorage.getItem("todo");
+            if(todo === null){
+                todoArray = [];
+            } else{
+                todoArray = JSON.parse(todo);
+            }
+            todoArray.push(text.value);
+            text.value = "";
+            localStorage.setItem("todo", JSON.stringify(todoArray));
+            displayTodo();
+        });
+
+        function displayTodo(){
+            let todo = localStorage.getItem("todo");
+            if(todo === null){
+                todoArray = [];
+            } else{
+                todoArray = JSON.parse(todo);
+            }
+            let htmlCode = "";
+           
+            todoArray.forEach((list, ind) => {
+                htmlCode += `<div>
+                    <p>${list}</p>
+                    <button onclick='edit(${ind})'>Edit</button>
+                    <button onclick='deleteTodo(${ind})'>Delete</button>
+                    
+                    </div>`;
+            });
+            listbox.innerHTML = htmlCode;
+        };
+        function deleteTodo(ind){
+            let todo = localStorage.getItem("todo");
+            todoArray = JSON.parse(todo);
+            todoArray.splice(ind,1);
+            localStorage.setItem("todo",JSON.stringify(todoArray));
+            displayTodo();
+        };
+
+        function edit(ind){
+            saveInd.value = ind;
+            let todo = localStorage.getItem("todo");
+            todoArray = JSON.parse(todo);
+            text.value = todoArray[ind];
+            addTaskBtn.style.display = "none";
+            editTaskBtn.style.display = "block";
+        };
+        editTaskBtn.addEventListener("click", ()=>{
+            let todo = localStorage.getItem("todo");
+            todoArray = JSON.parse(todo);
+            let id = saveInd.value;
+            todoArray[id] = text.value;
+            addTaskBtn.style.display = "block";
+            editTaskBtn.style.display = "none";
+            text.value = "";
+            localStorage.setItem("todo", JSON.stringify(todoArray));
+            displayTodo();
+        });
+    </script>
+
+</body>
+
+</html>
