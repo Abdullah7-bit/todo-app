@@ -5,9 +5,12 @@ import Header from './my_components/Header';
 import { Todos } from './my_components/Todos';
 import { AddTodo } from './my_components/AddTodo';
 import Footer from './my_components/Footer';
+import { Outlet} from "react-router-dom";
+
 
 
 function App() {
+
 
   let initTodo = [];
   if (localStorage.getItem("todos") === null) {
@@ -25,11 +28,7 @@ function App() {
     setTodos(todos.filter((e) => {
       return e !== todo;
     }));
-
-    
     localStorage.setItem("todos", JSON.stringify(todos));
-
-
   };
 
 
@@ -56,12 +55,12 @@ function App() {
   useEffect(() => {
     // localStorage.getItem("todos");
     localStorage.setItem("todos", JSON.stringify(todos));
-    
+
   }, [todos])
   return (
     <>
       <Header title="My Todos" custCondition={false} />
-      <AddTodo addTodo={addTodo} />
+      <AddTodo addTodo={addTodo}  />
       <Todos todos={todos} onDelete={onDelete} />
       <Footer />
     </>
