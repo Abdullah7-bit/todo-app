@@ -9,7 +9,7 @@ export default function Header(props) {
                     <a className="navbar-brand" href="#">Fixed bottom</a>
                 </div> : "Nothing Here"}
                 {/* <a className="navbar-brand" href={`/contact`}>Add Todo</a> */}
-                <Link to={`contact`}>Add Todo</Link>
+                <Link to="contact">Add Todo</Link>
 
             </div>
         </nav>

@@ -11,58 +11,60 @@ import { Outlet} from "react-router-dom";
 
 function App() {
 
-
-  let initTodo = [];
-  if (localStorage.getItem("todos") === null) {
-    initTodo = [];
-  } else {
-    initTodo = JSON.parse(localStorage.getItem("todos"));
-  }
-
+  // let initTodo = [];
+  // if (localStorage.getItem("todos") === null) {
+  //   initTodo = [];
+  // } else {
+  //   initTodo = JSON.parse(localStorage.getItem("todos"));
+  // }
 
 
-  // Delete function
-  const onDelete = (todo) => {
-    // console.log("Hi, I am onDelete of Todo", todo);
 
-    setTodos(todos.filter((e) => {
-      return e !== todo;
-    }));
-    localStorage.setItem("todos", JSON.stringify(todos));
-  };
+  // // Delete function
+  // const onDelete = (todo) => {
+  //   // console.log("Hi, I am onDelete of Todo", todo);
+
+  //   setTodos(todos.filter((e) => {
+  //     return e !== todo;
+  //   }));
+  //   localStorage.setItem("todos", JSON.stringify(todos));
+  // };
 
 
-  // Add Todo Function
-  const addTodo = (title, desc) => {
-    // If todo json is empty
-    let sno;
-    if (todos.length === 0) {
-      sno = 0;
-    } else {
-      sno = todos[todos.length - 1].sno + 1;
-    }
+  // // Add Todo Function
+  // const addTodo = (title, desc) => {
+  //   // If todo json is empty
+  //   let sno;
+  //   if (todos.length === 0) {
+  //     sno = 0;
+  //   } else {
+  //     sno = todos[todos.length - 1].sno + 1;
+  //   }
 
-    const newTodo = {
-      sno: sno,
-      title: title,
-      desc: desc,
-    };
-    setTodos([...todos, newTodo]);
-    // console.log(newTodo); 
+  //   const newTodo = {
+  //     sno: sno,
+  //     title: title,
+  //     desc: desc,
+  //   };
+  //   setTodos([...todos, newTodo]);
+  //   // console.log(newTodo); 
 
-  };
-  const [todos, setTodos] = useState(initTodo);
-  useEffect(() => {
-    // localStorage.getItem("todos");
-    localStorage.setItem("todos", JSON.stringify(todos));
+  // };
+  // const [todos, setTodos] = useState(initTodo);
+  // useEffect(() => {
+  //   // localStorage.getItem("todos");
+  //   localStorage.setItem("todos", JSON.stringify(todos));
 
-  }, [todos])
+  // }, [todos])
+
+
+  
   return (
     <>
       <Header title="My Todos" custCondition={false} />
-      <AddTodo addTodo={addTodo}  />
-      <Todos todos={todos} onDelete={onDelete} />
+      <Outlet/>
       <Footer />
+      
     </>
   );
 }

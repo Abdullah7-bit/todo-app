@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from './error-page';
 import Contact from './contact';
+import Todo from './my_components/Todo';
 
 
 
@@ -16,9 +17,14 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>,
     children:[
       {
-        path:"/contact",
-        element:<Contact/>
+        path: "/",
+        element:<Todo/>
+      },
+      {
+        path:"contact",
+        element:<Contact />
       }
+
     ]
   }
 ]);
